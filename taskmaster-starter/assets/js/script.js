@@ -211,7 +211,6 @@ $(".card .list-group").sortable({
   tasks[arrName] = tempArr;
   saveTasks();
   });
-});
 
   console.log(tempArr);
   },
@@ -220,7 +219,8 @@ $(".card .list-group").sortable({
   },
   update: function(event) {
     console.log($(this).children());
-  };
+  }
+
   $("#trash").droppable({
     accept: ".card .list-group-item",
     tolerance: "touch",
@@ -287,3 +287,9 @@ $(".list-group").on("click", "span", function() {
     $(taskEl).addClass("list-group-item-warning");
   }
   };
+  setInterval(function () {
+    $(".card .list-group-item").each(function (el) {
+      auditTask(el);
+    });
+  }, 1800000);
+  
