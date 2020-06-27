@@ -40,7 +40,9 @@ var loadTasks = function() {
   });
 };
 
-var saveTasks = function() {};
+var saveTasks = function() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
 
 $(".list-group").on("click", "p", function() {
   var text = $(this)
@@ -174,6 +176,7 @@ $(".card .list-group").sortable({
   tolerance: "pointer",
   helper: "clone",
   activate: function(event) {
+    $(this).dropover //check this line
     console.log("activate", this);
   },
   deactivate: function(event) {
@@ -219,52 +222,52 @@ $(".card .list-group").sortable({
   },
   update: function(event) {
     console.log($(this).children());
-  }
+  },
 
-  $("#trash").droppable({
-    accept: ".card .list-group-item",
-    tolerance: "touch",
-    drop: function(event, ui) {
-      console.log("drop");
-      ui.draggable.remove();
-    },
-    over: function(event, ui) {
-      console.log("over");
-    },
-    out: function(event, ui) {
-      console.log("out");
-    }
-  });
-  $("#modalDueDate").datepicker({
-    minDate: 1
-    // enable jquery ui datepicker
-dateInput.datepicker({
-  minDate: 1,
-  onClose: function() {
-    // when calendar is closed, force a "change" event on the `dateInput`
-    $(this).trigger("change");
-  }
-}),
+  // $("#remove-tasks").droppable({
+  //   accept: ".card .list-group-item",
+  //   tolerance: "touch",
+  //   drop: function(event, ui) {
+  //     console.log("drop");
+  //     ui.draggable.remove();
+  //   },
+  //   over: function(event, ui) {
+  //     console.log("over");
+  //   },
+  //   out: function(event, ui) {
+  //     console.log("out");
+  //   }
+  // });
+//   $("#modalDueDate").datepicker({
+//     minDate: 1
+//     // enable jquery ui datepicker
+// dateInput.datepicker({
+//   minDate: 1,
+//   onClose: function() {
+//     // when calendar is closed, force a "change" event on the `dateInput`
+//     $(this).trigger("change");
+//   }
+// }),
     
     
-$(".list-group").on("click", "span", function() {
-      // get current text
-      var date = $(this).text().trim();
+// $(".list-group").on("click", "span", function() {
+//       // get current text
+//       var date = $(this).text().trim();
     
-      // create new input element
-      var dateInput = $("<input>").attr("type", "text").addClass("form-control").val(date);
+//       // create new input element
+//       var dateInput = $("<input>").attr("type", "text").addClass("form-control").val(date);
     
-      $(this).replaceWith(dateInput);
+//       $(this).replaceWith(dateInput);
     
-      // enable jquery ui datepicker
-      dateInput.datepicker({
-        minDate: 1
-      });
+//       // enable jquery ui datepicker
+//       dateInput.datepicker({
+//         minDate: 1
+//       });
     
-      // automatically bring up the calendar
-      dateInput.trigger("focus");
-    }),
-  });
+//       // automatically bring up the calendar
+//       dateInput.trigger("focus");
+//     }),
+//   });
   var auditTask = function(taskEl) {
     // get date from task element
     var date = $(taskEl).find("span").text().trim();
@@ -292,4 +295,4 @@ $(".list-group").on("click", "span", function() {
       auditTask(el);
     });
   }, 1800000);
-  
+});
